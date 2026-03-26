@@ -5,10 +5,15 @@ import type { OrderItem, ShippingAddress } from "@/types/database";
 export const dynamic = "force-dynamic";
 
 export async function POST(req: NextRequest) {
-  const Razorpay = (await import("razorpay")).default;
+  if (!process.env.RAZORPAY_KEY_ID || process.env.RAZORPAY_KEY_ID === "rzp_test_placeholder") {
+    return NextResponse.json({ error: "Payment not configured yet" }, { status: 503 });
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const Razorpay = require("razorpay");
   const razorpay = new Razorpay({
-    key_id: process.env.RAZORPAY_KEY_ID!,
-    key_secret: process.env.RAZORPAY_KEY_SECRET!,
+    key_id: process.env.RAZORPAY_KEY_ID,
+    key_secret: process.env.RAZORPAY_KEY_SECRET,
   });
   try {
     const body = await req.json();
