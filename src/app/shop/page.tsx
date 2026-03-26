@@ -1,5 +1,6 @@
 import { supabase } from "@/lib/supabase";
 import ProductCard from "@/components/ProductCard";
+import SortSelect from "@/components/SortSelect";
 import type { Product } from "@/types/database";
 
 const CATEGORIES = [
@@ -10,11 +11,6 @@ const CATEGORIES = [
   { label: "Keychains & Charms", value: "keychains" },
 ];
 
-const SORT_OPTIONS = [
-  { label: "Newest", value: "created_at-desc" },
-  { label: "Price: Low to High", value: "price-asc" },
-  { label: "Price: High to Low", value: "price-desc" },
-];
 
 async function getProducts(category?: string, sort?: string): Promise<Product[]> {
   let query = supabase.from("products").select("*");
@@ -65,21 +61,7 @@ export default async function ShopPage({
           ))}
         </div>
 
-        <select
-          defaultValue={sort}
-          onChange={(e) => {
-            const url = new URL(window.location.href);
-            url.searchParams.set("sort", e.target.value);
-            window.location.href = url.toString();
-          }}
-          className="border border-sand rounded-full px-4 py-1.5 text-sm text-brown bg-white focus:outline-none focus:border-terracotta"
-        >
-          {SORT_OPTIONS.map((o) => (
-            <option key={o.value} value={o.value}>
-              {o.label}
-            </option>
-          ))}
-        </select>
+        <SortSelect value={sort} />
       </div>
 
       {/* Grid */}
