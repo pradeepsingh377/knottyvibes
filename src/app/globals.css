@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-inter: 'Inter', sans-serif;
+  --font-playfair: 'Playfair Display', serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #FAF7F2;
+  color: #2C1810;
+  font-family: var(--font-inter);
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-terracotta text-white px-6 py-3 rounded-full font-medium
+           hover:bg-terracotta-dark transition-colors duration-200
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-outline {
+    @apply border border-terracotta text-terracotta px-6 py-3 rounded-full font-medium
+           hover:bg-terracotta hover:text-white transition-colors duration-200;
+  }
+
+  .section-title {
+    @apply font-display text-3xl md:text-4xl text-brown-dark;
+  }
+}
