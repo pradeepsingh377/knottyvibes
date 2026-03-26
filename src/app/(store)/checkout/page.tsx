@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useCart } from "@/context/CartContext";
+import { createSupabaseBrowserClient } from "@/lib/supabase-browser";
 import type { ShippingAddress } from "@/types/database";
 
 declare global {
@@ -54,6 +55,27 @@ export default function CheckoutPage() {
     name: "", email: "", phone: "",
     line1: "", line2: "", city: "", state: "", pincode: "",
   });
+
+  // Pre-fill from saved profile
+  useEffect(() => {
+    const supabase = createSupabaseBrowserClient();
+    supabase.auth.getUser().then(async ({ data }) => {
+      if (!data.user) return;
+      const { data: profile } = await supabase
+        .from("profiles").select("*").eq("id", data.user.id).single();
+      setForm((f) => ({
+        ...f,
+        name: profile?.full_name ?? data.user.user_metadata?.full_name ?? f.name,
+        email: data.user.email ?? f.email,
+        phone: profile?.phone ?? f.phone,
+        line1: profile?.address_line1 ?? f.line1,
+        line2: profile?.address_line2 ?? f.line2,
+        city: profile?.city ?? f.city,
+        state: profile?.state ?? f.state,
+        pincode: profile?.pincode ?? f.pincode,
+      }));
+    });
+  }, []);
 
   const shipping = totalPrice >= 999 ? 0 : 99;
   const grandTotal = totalPrice + shipping;
