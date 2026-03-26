@@ -44,6 +44,38 @@ export async function sendOrderConfirmation({
   });
 }
 
+export async function sendShippingNotification({
+  to, name, orderId, trackingId, trackingUrl,
+}: {
+  to: string; name: string; orderId: string;
+  trackingId?: string; trackingUrl?: string;
+}) {
+  const trackingSection = trackingId
+    ? `<div style="background:white;border-radius:8px;padding:20px;margin:24px 0;text-align:center">
+        <p style="font-size:13px;color:#8b6245;margin:0 0 8px">Tracking ID</p>
+        <p style="font-size:18px;font-weight:bold;color:#4a2e16;letter-spacing:1px;margin:0">${trackingId}</p>
+        ${trackingUrl ? `<a href="${trackingUrl}" style="display:inline-block;margin-top:12px;background:#c4704f;color:white;padding:10px 24px;border-radius:999px;text-decoration:none;font-size:13px">Track your order →</a>` : ""}
+      </div>`
+    : `<p style="font-size:13px;color:#8b6245">Tracking details will be shared soon.</p>`;
+
+  return resend.emails.send({
+    from: "KnottyVibes <orders@knottyvibes.art>",
+    to,
+    subject: "Your KnottyVibes order has shipped! 🚚",
+    html: `
+      <div style="font-family:Georgia,serif;max-width:560px;margin:0 auto;background:#faf7f2;padding:32px;border-radius:12px">
+        <h1 style="font-size:28px;color:#4a2e16;margin-bottom:4px">It's on its way, ${name}! 🎉</h1>
+        <p style="color:#8b6245;margin-top:0">Your handcrafted order has been dispatched.</p>
+        ${trackingSection}
+        <p style="font-size:13px;color:#8b6245">Expected delivery in 3–5 business days.</p>
+        <p style="font-size:13px;color:#8b6245">Order ref: <span style="font-family:monospace">${orderId.slice(-8)}</span></p>
+        <p style="font-size:13px;color:#8b6245">Questions? Write to <a href="mailto:hello@knottyvibes.art" style="color:#c4704f">hello@knottyvibes.art</a></p>
+        <p style="font-size:12px;color:#c4b89a;margin-top:32px">Made with love · KnottyVibes</p>
+      </div>
+    `,
+  });
+}
+
 export async function sendWelcomeEmail({ to, name }: { to: string; name: string }) {
   return resend.emails.send({
     from: "KnottyVibes <hello@knottyvibes.art>",
