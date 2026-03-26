@@ -3,12 +3,11 @@ import Razorpay from "razorpay";
 import { supabase } from "@/lib/supabase";
 import type { OrderItem, ShippingAddress } from "@/types/database";
 
-const razorpay = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID!,
-  key_secret: process.env.RAZORPAY_KEY_SECRET!,
-});
-
 export async function POST(req: NextRequest) {
+  const razorpay = new Razorpay({
+    key_id: process.env.RAZORPAY_KEY_ID!,
+    key_secret: process.env.RAZORPAY_KEY_SECRET!,
+  });
   try {
     const body = await req.json();
     const { items, customer, shipping_address } = body as {
