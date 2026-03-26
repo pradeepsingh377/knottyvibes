@@ -4,10 +4,10 @@ import ProductCard from "@/components/ProductCard";
 import type { Product } from "@/types/database";
 
 const CATEGORIES = [
-  { name: "Macrame", slug: "macrame", emoji: "🪢", desc: "Wall hangings, plant hangers & more" },
-  { name: "Candles", slug: "candles", emoji: "🕯️", desc: "Hand-poured soy & beeswax candles" },
-  { name: "Jewellery", slug: "jewelry", emoji: "🌿", desc: "Earrings, necklaces & bangles" },
-  { name: "Home Decor", slug: "home-decor", emoji: "🏡", desc: "Unique pieces for every corner" },
+  { name: "Woolen Jewellery", slug: "woolen-jewellery", emoji: "💛", desc: "Earrings, necklaces & brooches" },
+  { name: "Hair Accessories", slug: "hair-accessories", emoji: "🎀", desc: "Scrunchies, clips & headbands" },
+  { name: "Home Decor", slug: "home-decor", emoji: "🏡", desc: "Wall hangings, coasters & more" },
+  { name: "Keychains & Charms", slug: "keychains", emoji: "🗝️", desc: "Cute woolen bag charms & keychains" },
 ];
 
 async function getFeaturedProducts(): Promise<Product[]> {

@@ -4,10 +4,10 @@ import type { Product } from "@/types/database";
 
 const CATEGORIES = [
   { label: "All", value: "" },
-  { label: "Macrame", value: "macrame" },
-  { label: "Candles", value: "candles" },
-  { label: "Jewellery", value: "jewelry" },
+  { label: "Woolen Jewellery", value: "woolen-jewellery" },
+  { label: "Hair Accessories", value: "hair-accessories" },
   { label: "Home Decor", value: "home-decor" },
+  { label: "Keychains & Charms", value: "keychains" },
 ];
 
 const SORT_OPTIONS = [

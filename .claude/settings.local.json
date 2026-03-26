@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:knottyvibes-2houu7cgo-pradeepsingh377s-projects.vercel.app)"
+    ]
+  }
+}

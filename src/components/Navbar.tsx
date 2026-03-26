@@ -7,9 +7,10 @@ import { ShoppingBag, Menu, X } from "lucide-react";
 
 const NAV_LINKS = [
   { href: "/shop", label: "Shop" },
-  { href: "/shop?category=macrame", label: "Macrame" },
-  { href: "/shop?category=candles", label: "Candles" },
-  { href: "/shop?category=jewelry", label: "Jewellery" },
+  { href: "/shop?category=woolen-jewellery", label: "Jewellery" },
+  { href: "/shop?category=hair-accessories", label: "Hair" },
+  { href: "/shop?category=home-decor", label: "Home Decor" },
+  { href: "/shop?category=keychains", label: "Keychains" },
   { href: "/about", label: "About" },
 ];
 
