@@ -2,12 +2,13 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Package, ShoppingBag, LogOut, LayoutGrid, IndianRupee } from "lucide-react";
+import { Package, LogOut, LayoutGrid, IndianRupee, Users } from "lucide-react";
 
 const NAV = [
   { href: "/admin/products", label: "Products", icon: Package },
   { href: "/admin/categories", label: "Categories", icon: LayoutGrid },
   { href: "/admin/orders", label: "Orders & Revenue", icon: IndianRupee },
+  { href: "/admin/users", label: "Customers", icon: Users },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

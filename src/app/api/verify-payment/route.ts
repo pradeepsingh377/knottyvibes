@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
 import { supabase } from "@/lib/supabase";
+import { sendOrderConfirmation } from "@/lib/resend";
 
 export async function POST(req: NextRequest) {
   try {
@@ -16,12 +17,25 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
     }
 
-    const { error } = await supabase
+    const { data: order, error } = await supabase
       .from("orders")
       .update({ status: "paid", razorpay_payment_id })
-      .eq("razorpay_order_id", razorpay_order_id);
+      .eq("razorpay_order_id", razorpay_order_id)
+      .select()
+      .single();
 
     if (error) throw error;
+
+    // Send confirmation email (non-blocking)
+    if (order && process.env.RESEND_API_KEY) {
+      sendOrderConfirmation({
+        to: order.customer_email,
+        name: order.customer_name,
+        orderId: razorpay_order_id,
+        items: order.items,
+        total: order.amount,
+      }).catch(console.error);
+    }
 
     return NextResponse.json({ success: true });
   } catch (err) {
