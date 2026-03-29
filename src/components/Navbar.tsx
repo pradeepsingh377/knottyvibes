@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/context/CartContext";
@@ -46,8 +47,8 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 bg-cream/95 backdrop-blur-sm border-b border-sand">
       <div className="max-w-6xl mx-auto px-4 flex items-center justify-between h-16">
-        <Link href="/" className="font-display text-2xl text-brown-dark tracking-wide">
-          KnottyVibes
+        <Link href="/">
+          <Image src="/logo.svg" alt="KnottyVibes" width={140} height={38} priority />
         </Link>
 
         <nav className="hidden md:flex items-center gap-8">

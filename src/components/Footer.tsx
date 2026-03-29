@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Mail } from "lucide-react";
 
 export default function Footer() {
@@ -7,7 +8,7 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Brand */}
         <div>
-          <h3 className="font-display text-2xl text-white mb-3">KnottyVibes</h3>
+          <Image src="/logo.svg" alt="KnottyVibes" width={160} height={44} className="mb-3 brightness-0 invert" />
           <p className="text-sm text-sand/70 leading-relaxed">
             Handcrafted with love. Every piece tells a story — made slow, made meaningful.
           </p>
