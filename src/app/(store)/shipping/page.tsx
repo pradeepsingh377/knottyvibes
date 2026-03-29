@@ -42,8 +42,8 @@ export default function ShippingPage() {
           <p className="text-brown/70 text-sm leading-relaxed">
             Orders can be cancelled within <strong>12 hours</strong> of placing them.
             After that, production may have already begun. Write to us at{" "}
-            <a href="mailto:hello@knottyvibes.art" className="text-terracotta hover:underline">
-              hello@knottyvibes.art
+            <a href="mailto:knottyvibes74@gmail.com" className="text-terracotta hover:underline">
+              knottyvibes74@gmail.com
             </a>{" "}
             as soon as possible and we&apos;ll do our best to help.
           </p>

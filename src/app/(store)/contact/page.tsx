@@ -15,7 +15,7 @@ export default function ContactPage() {
 
       <div className="space-y-4 mb-12">
         <a
-          href="mailto:hello@knottyvibes.art"
+          href="mailto:knottyvibes74@gmail.com"
           className="flex items-center gap-4 bg-white rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow group"
         >
           <div className="w-12 h-12 bg-terracotta/10 rounded-full flex items-center justify-center group-hover:bg-terracotta/20 transition-colors">
@@ -23,7 +23,7 @@ export default function ContactPage() {
           </div>
           <div>
             <p className="font-medium text-brown-dark">Email Us</p>
-            <p className="text-sm text-brown/60">hello@knottyvibes.art</p>
+            <p className="text-sm text-brown/60">knottyvibes74@gmail.com</p>
           </div>
         </a>
 

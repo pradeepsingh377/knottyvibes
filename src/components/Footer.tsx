@@ -37,10 +37,10 @@ export default function Footer() {
           <h4 className="font-medium text-white mb-3">Get in Touch</h4>
           <div className="space-y-2 text-sm text-sand/70">
             <a
-              href="mailto:hello@knottyvibes.art"
+              href="mailto:knottyvibes74@gmail.com"
               className="flex items-center gap-2 hover:text-terracotta-light transition-colors"
             >
-              <Mail size={16} /> hello@knottyvibes.art
+              <Mail size={16} /> knottyvibes74@gmail.com
             </a>
             <a
               href="https://instagram.com/knottyvibes.art"
