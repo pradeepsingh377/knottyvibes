@@ -5,8 +5,13 @@ import { CartProvider } from "@/context/CartContext";
 export const metadata: Metadata = {
   title: "KnottyVibes – Handmade with Love",
   description:
-    "Shop handcrafted macrame, candles, jewellery, and more. Made slow, made meaningful.",
+    "Shop handcrafted woolen jewellery, hair accessories, home decor and more. Made slow, made meaningful.",
   metadataBase: new URL("https://knottyvibes.art"),
+  icons: {
+    icon: "/icon.svg",
+    shortcut: "/icon.svg",
+    apple: "/icon.svg",
+  },
   openGraph: {
     title: "KnottyVibes",
     description: "Handcrafted with love. Shop unique handmade products.",
