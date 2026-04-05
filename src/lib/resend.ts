@@ -78,7 +78,7 @@ export async function sendShippingNotification({
 
 export async function sendWelcomeEmail({ to, name }: { to: string; name: string }) {
   return resend.emails.send({
-    from: "KnottyVibes <knottyvibes74@gmail.com>",
+    from: "KnottyVibes <hello@knottyvibes.art>",
     to,
     subject: "Welcome to KnottyVibes 💛",
     html: `
