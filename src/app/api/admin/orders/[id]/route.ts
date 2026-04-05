@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { sendShippingNotification } from "@/lib/resend";
+import { checkAdminAuth } from "@/lib/admin-auth";
 
 const adminSupabase = () => createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -8,6 +9,8 @@ const adminSupabase = () => createClient(
 );
 
 export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const authError = checkAdminAuth(req);
+  if (authError) return authError;
   const { id } = await params;
   const body = await req.json();
   const { fulfillment_status, tracking_id, tracking_url, admin_notes } = body;

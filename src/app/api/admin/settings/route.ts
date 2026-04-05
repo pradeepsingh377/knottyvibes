@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import { checkAdminAuth } from "@/lib/admin-auth";
 
 function adminClient() {
   return createClient(
@@ -8,7 +9,9 @@ function adminClient() {
   );
 }
 
-export async function GET() {
+export async function GET(req: NextRequest) {
+  const authError = checkAdminAuth(req);
+  if (authError) return authError;
   const supabase = adminClient();
   const { data, error } = await supabase.from("settings").select("*").order("key");
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
@@ -16,6 +19,8 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
+  const authError = checkAdminAuth(req);
+  if (authError) return authError;
   const supabase = adminClient();
   const updates: { key: string; value: string }[] = await req.json();
 
