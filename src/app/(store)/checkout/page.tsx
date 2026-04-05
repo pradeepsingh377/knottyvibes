@@ -55,6 +55,16 @@ export default function CheckoutPage() {
     name: "", email: "", phone: "",
     line1: "", line2: "", city: "", state: "", pincode: "",
   });
+  const [shippingFee, setShippingFee] = useState(99);
+  const [freeThreshold, setFreeThreshold] = useState(999);
+
+  // Fetch shipping settings
+  useEffect(() => {
+    fetch("/api/settings").then((r) => r.json()).then((s) => {
+      setShippingFee(s.shipping_fee);
+      setFreeThreshold(s.free_shipping_threshold);
+    });
+  }, []);
 
   // Pre-fill from saved profile
   useEffect(() => {
@@ -77,7 +87,7 @@ export default function CheckoutPage() {
     });
   }, []);
 
-  const shipping = totalPrice >= 999 ? 0 : 99;
+  const shipping = totalPrice >= freeThreshold ? 0 : shippingFee;
   const grandTotal = totalPrice + shipping;
 
   if (items.length === 0) {

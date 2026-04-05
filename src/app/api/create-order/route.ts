@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
+import { getShippingSettings } from "@/lib/settings";
 import type { ShippingAddress } from "@/types/database";
 
 export const dynamic = "force-dynamic";
@@ -53,7 +54,8 @@ export async function POST(req: NextRequest) {
     }
 
     const subtotal = orderItems.reduce((sum, i) => sum + i.price * i.quantity, 0);
-    const shipping = subtotal >= 999 ? 0 : 99;
+    const { shipping_fee, free_shipping_threshold } = await getShippingSettings();
+    const shipping = subtotal >= free_shipping_threshold ? 0 : shipping_fee;
     const amount = Math.round((subtotal + shipping) * 100); // paise
 
     const rzpOrder = await razorpay.orders.create({

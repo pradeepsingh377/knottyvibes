@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "WebFetch(domain:knottyvibes-2houu7cgo-pradeepsingh377s-projects.vercel.app)"
+      "WebFetch(domain:knottyvibes-2houu7cgo-pradeepsingh377s-projects.vercel.app)",
+      "mcp__Claude_Preview__preview_start"
     ]
   }
 }
