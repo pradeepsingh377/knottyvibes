@@ -81,8 +81,11 @@ export default function AccountPage() {
   async function saveProfile(e: React.FormEvent) {
     e.preventDefault();
     setSaving(true);
-    const supabase = createSupabaseBrowserClient();
-    await supabase.from("profiles").upsert({ id: user!.id, ...profile, updated_at: new Date().toISOString() });
+    await fetch("/api/user/profile", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(profile),
+    });
     setSaving(false);
     setSaved(true);
     setTimeout(() => setSaved(false), 3000);

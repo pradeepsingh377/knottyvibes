@@ -110,22 +110,19 @@ export default function CheckoutPage() {
 
     try {
       // Auto-save address to profile if logged in (non-blocking)
-      const supabase = createSupabaseBrowserClient();
-      supabase.auth.getUser().then(({ data }) => {
-        if (data.user) {
-          supabase.from("profiles").upsert({
-            id: data.user.id,
-            full_name: form.name,
-            phone: form.phone,
-            address_line1: form.line1,
-            address_line2: form.line2 || null,
-            city: form.city,
-            state: form.state,
-            pincode: form.pincode,
-            updated_at: new Date().toISOString(),
-          }, { onConflict: "id" });
-        }
-      });
+      fetch("/api/user/profile", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          full_name: form.name,
+          phone: form.phone,
+          address_line1: form.line1,
+          address_line2: form.line2 || null,
+          city: form.city,
+          state: form.state,
+          pincode: form.pincode,
+        }),
+      }).catch(console.error);
 
       const orderItems = items.map((i) => ({
         product_id: i.product.id,
