@@ -57,7 +57,7 @@ export default function AccountPage() {
 
       const [{ data: orders, error: ordersError }, { data: profileData }] = await Promise.all([
         supabase.from("orders").select("*").eq("customer_email", data.user.email).order("created_at", { ascending: false }),
-        supabase.from("profiles").select("*").eq("id", data.user.id).single(),
+        supabase.from("profiles").select("*").eq("id", data.user.id).maybeSingle(),
       ]);
 
       if (ordersError) console.error("Orders fetch error:", ordersError);
