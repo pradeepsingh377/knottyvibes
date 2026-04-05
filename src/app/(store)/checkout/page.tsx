@@ -109,6 +109,24 @@ export default function CheckoutPage() {
     setLoading(true);
 
     try {
+      // Auto-save address to profile if logged in (non-blocking)
+      const supabase = createSupabaseBrowserClient();
+      supabase.auth.getUser().then(({ data }) => {
+        if (data.user) {
+          supabase.from("profiles").upsert({
+            id: data.user.id,
+            full_name: form.name,
+            phone: form.phone,
+            address_line1: form.line1,
+            address_line2: form.line2 || null,
+            city: form.city,
+            state: form.state,
+            pincode: form.pincode,
+            updated_at: new Date().toISOString(),
+          }, { onConflict: "id" });
+        }
+      });
+
       const orderItems = items.map((i) => ({
         product_id: i.product.id,
         name: i.product.name,
