@@ -4,9 +4,19 @@ import Image from "next/image";
 import Link from "next/link";
 import { Trash2, ShoppingBag } from "lucide-react";
 import { useCart } from "@/context/CartContext";
+import { useState, useEffect } from "react";
 
 export default function CartPage() {
   const { items, totalPrice, totalItems, updateQuantity, removeItem } = useCart();
+  const [shippingFee, setShippingFee] = useState(99);
+  const [freeThreshold, setFreeThreshold] = useState(999);
+
+  useEffect(() => {
+    fetch("/api/settings").then((r) => r.json()).then((s) => {
+      setShippingFee(s.shipping_fee);
+      setFreeThreshold(s.free_shipping_threshold);
+    });
+  }, []);
 
   if (items.length === 0) {
     return (
@@ -21,7 +31,7 @@ export default function CartPage() {
     );
   }
 
-  const shipping = totalPrice >= 999 ? 0 : 99;
+  const shipping = totalPrice >= freeThreshold ? 0 : shippingFee;
   const grandTotal = totalPrice + shipping;
 
   return (
@@ -103,7 +113,7 @@ export default function CartPage() {
               </span>
             </div>
             {shipping > 0 && (
-              <p className="text-xs text-brown/50">Add ₹{(999 - totalPrice).toLocaleString("en-IN")} more for free shipping</p>
+              <p className="text-xs text-brown/50">Add ₹{(freeThreshold - totalPrice).toLocaleString("en-IN")} more for free shipping</p>
             )}
             <div className="border-t border-sand pt-3 flex justify-between font-semibold text-brown-dark text-base">
               <span>Total</span>
