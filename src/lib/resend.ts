@@ -72,7 +72,7 @@ export async function sendOrderConfirmation({
           <p style="margin:0">📦 <strong>Delivery:</strong> 5–7 business days after dispatch</p>
         </div>
 
-        <p style="font-size:13px;color:#8b6245">Questions? Write to <a href="mailto:knottyvibes74@gmail.com" style="color:#c4704f">knottyvibes74@gmail.com</a></p>
+        <p style="font-size:13px;color:#8b6245">Questions? Write to <a href="mailto:hello@knottyvibes.art" style="color:#c4704f">hello@knottyvibes.art</a></p>
         <p style="font-size:12px;color:#c4b89a;margin-top:28px;text-align:center">Made with love · KnottyVibes · <a href="https://knottyvibes.art" style="color:#c4b89a">knottyvibes.art</a></p>
       </div>
     `,
@@ -104,7 +104,7 @@ export async function sendShippingNotification({
         ${trackingSection}
         <p style="font-size:13px;color:#8b6245">Expected delivery in 3–5 business days.</p>
         <p style="font-size:13px;color:#8b6245">Order ref: <span style="font-family:monospace">${orderId.slice(-8)}</span></p>
-        <p style="font-size:13px;color:#8b6245">Questions? Write to <a href="mailto:knottyvibes74@gmail.com" style="color:#c4704f">knottyvibes74@gmail.com</a></p>
+        <p style="font-size:13px;color:#8b6245">Questions? Write to <a href="mailto:hello@knottyvibes.art" style="color:#c4704f">hello@knottyvibes.art</a></p>
         <p style="font-size:12px;color:#c4b89a;margin-top:32px">Made with love · KnottyVibes</p>
       </div>
     `,
