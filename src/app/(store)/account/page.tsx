@@ -55,14 +55,12 @@ export default function AccountPage() {
       if (!data.user) { router.push("/login"); return; }
       setUser(data.user);
 
-      const [{ data: orders, error: ordersError }, { data: profileData }] = await Promise.all([
-        supabase.from("orders").select("*").eq("customer_email", data.user.email).order("created_at", { ascending: false }),
+      const [ordersRes, { data: profileData }] = await Promise.all([
+        fetch("/api/user/orders").then((r) => r.json()),
         supabase.from("profiles").select("*").eq("id", data.user.id).maybeSingle(),
       ]);
 
-      if (ordersError) console.error("Orders fetch error:", ordersError);
-      console.log("User email:", data.user.email, "Orders:", orders);
-      setOrders(orders ?? []);
+      setOrders(Array.isArray(ordersRes) ? ordersRes : []);
       if (profileData) {
         setProfile({
           full_name: profileData.full_name ?? data.user.user_metadata?.full_name ?? "",
