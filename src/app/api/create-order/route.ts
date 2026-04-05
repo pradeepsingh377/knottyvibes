@@ -1,7 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@supabase/supabase-js";
 import { getShippingSettings } from "@/lib/settings";
 import type { ShippingAddress } from "@/types/database";
+
+function adminSupabase() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
+}
 
 export const dynamic = "force-dynamic";
 
@@ -28,6 +35,8 @@ export async function POST(req: NextRequest) {
     if (!items?.length || !customer || !shipping_address) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
+
+    const supabase = adminSupabase();
 
     // Fetch real prices from DB — never trust client
     const productIds = items.map((i) => i.product_id);

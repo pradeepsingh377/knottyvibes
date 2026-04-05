@@ -1,12 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@supabase/supabase-js";
 import { sendOrderConfirmation } from "@/lib/resend";
+
+// Use service role to bypass RLS for order updates
+function adminSupabase() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
+}
 
 export async function POST(req: NextRequest) {
   try {
     const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = await req.json();
 
+    // Verify HMAC signature
     const body = `${razorpay_order_id}|${razorpay_payment_id}`;
     const expected = crypto
       .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET!)
@@ -14,8 +23,11 @@ export async function POST(req: NextRequest) {
       .digest("hex");
 
     if (expected !== razorpay_signature) {
+      console.error("Signature mismatch", { expected, received: razorpay_signature });
       return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
     }
+
+    const supabase = adminSupabase();
 
     // Mark order as paid
     const { data: order, error } = await supabase
@@ -25,7 +37,10 @@ export async function POST(req: NextRequest) {
       .select()
       .single();
 
-    if (error) throw error;
+    if (error) {
+      console.error("Order update error:", error);
+      throw error;
+    }
 
     // Decrement stock for each item
     if (order?.items) {
