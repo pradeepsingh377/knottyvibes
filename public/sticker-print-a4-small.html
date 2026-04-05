@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8"/>
+  <title>KnottyVibes Stickers — A4 Small (3×7)</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #ccc;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      font-family: Georgia, serif;
+      gap: 16px;
+    }
+
+    .instructions {
+      background: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 13px;
+      color: #555;
+      text-align: center;
+    }
+    .instructions strong { color: #c4704f; }
+
+    .a4-sheet {
+      width: 210mm;
+      min-height: 297mm;
+      background: white;
+      padding: 6mm;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 3mm;
+      align-content: start;
+    }
+
+    .sticker-wrap {
+      width: 100%;
+      position: relative;
+    }
+
+    .sticker-wrap svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .sticker-wrap::after {
+      content: '';
+      position: absolute;
+      inset: -1.5mm;
+      border: 0.3mm dashed #bbb;
+      border-radius: 3mm;
+      pointer-events: none;
+    }
+
+    @media print {
+      body { background: white; padding: 0; display: block; }
+      .instructions { display: none; }
+      .a4-sheet {
+        width: 100%;
+        min-height: auto;
+        padding: 6mm;
+        box-shadow: none;
+        page-break-after: always;
+      }
+      .sticker-wrap::after { border-color: #ccc; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="instructions">
+    Press <strong>Ctrl+P</strong> &nbsp;→&nbsp; Paper: <strong>A4</strong> &nbsp;→&nbsp; Margins: <strong>None</strong> &nbsp;→&nbsp; Background graphics: <strong>ON</strong> &nbsp;→&nbsp; Print
+    &nbsp;&nbsp;|&nbsp;&nbsp; <strong>21 stickers per sheet</strong> (3 × 7)
+  </div>
+
+  <div class="a4-sheet" id="sheet"></div>
+
+  <script>
+    const svg = (id) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 260">
+      <defs><linearGradient id="bg${id}" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#fdf3ec"/>
+        <stop offset="100%" style="stop-color:#fae8d8"/>
+      </linearGradient></defs>
+      <rect width="480" height="260" rx="22" fill="url(#bg${id})"/>
+      <rect x="3" y="3" width="474" height="254" rx="20" fill="none" stroke="#c4704f" stroke-width="2.5"/>
+      <rect x="11" y="11" width="458" height="238" rx="14" fill="none" stroke="#c4704f" stroke-width="1" stroke-dasharray="5 4"/>
+      <circle cx="100" cy="128" r="56" fill="#c4704f" opacity="0.10"/>
+      <circle cx="100" cy="128" r="56" stroke="#c4704f" stroke-width="2.5" fill="none"/>
+      <path d="M47 110 Q100 102 153 112" stroke="#c4704f" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M44 128 Q100 120 156 128" stroke="#c4704f" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M47 146 Q100 138 153 147" stroke="#c4704f" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M78 73 Q83 128 79 183" stroke="#8b6245" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+      <path d="M100 72 Q104 128 100 184" stroke="#8b6245" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+      <path d="M122 73 Q117 128 121 183" stroke="#8b6245" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+      <path d="M150 98 Q166 84 163 100 Q160 114 174 108" stroke="#c4704f" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+      <line x1="176" y1="30" x2="176" y2="230" stroke="#c4704f" stroke-width="0.8" opacity="0.3"/>
+      <text x="202" y="82" font-family="Georgia,serif" font-size="36" font-weight="700" fill="#2d1a0a" letter-spacing="0.5">KnottyVibes</text>
+      <text x="204" y="112" font-family="Georgia,serif" font-size="15" font-style="italic" font-weight="700" fill="#7a3a10" letter-spacing="0.3">Made slow, made meaningful</text>
+      <line x1="200" y1="130" x2="458" y2="130" stroke="#c4704f" stroke-width="0.8" opacity="0.4"/>
+      <text x="200" y="158" font-family="Georgia,serif" font-size="16" font-weight="700" fill="#4a2e16" letter-spacing="0.5">&#127760;  www.knottyvibes.art</text>
+      <text x="200" y="184" font-family="Georgia,serif" font-size="15" font-weight="700" fill="#4a2e16" letter-spacing="0.5">&#9993;  knottyvibes74@gmail.com</text>
+      <line x1="200" y1="202" x2="458" y2="202" stroke="#c4704f" stroke-width="0.8" opacity="0.4"/>
+      <text x="200" y="226" font-family="Georgia,serif" font-size="11" font-weight="700" fill="#7a3a10" letter-spacing="2.5">HANDCRAFTED WITH LOVE</text>
+    </svg>`;
+
+    const sheet = document.getElementById('sheet');
+    for (let i = 1; i <= 21; i++) {
+      const div = document.createElement('div');
+      div.className = 'sticker-wrap';
+      div.innerHTML = svg(i);
+      sheet.appendChild(div);
+    }
+  </script>
+
+</body>
+</html>
